@@ -1156,10 +1156,11 @@ class Dialogu2(QDialog, TabView2.Ui_insertDialogu):
 
     def setdata_aircraft(self):
         query = QSqlQuery()
-        query.prepare("INSERT INTO Aircraft(immatriculation,type_ac,puissance)" "VALUES(?,?,?)")
+        query.prepare("INSERT INTO Aircraft(immatriculation,type_ac,puissance,prix)" "VALUES(?,?,?,?)")
         query.bindValue(0, self.lineEdit.text())
         query.bindValue(1, self.lineEdit_2.text())
         query.bindValue(2, self.lineEdit_3.text())
+        query.bindValue(3,self.label_prix.text())
         query.exec_()
         msg = QMessageBox()
         msg.setText("Aéronef inseré dans la base de données")
