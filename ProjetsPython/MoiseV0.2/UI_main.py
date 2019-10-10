@@ -17,7 +17,7 @@ from email.mime.text import MIMEText
 
 from PyQt5.QtCore import Qt, QObject, QDate, pyqtSlot, pyqtSignal, QThreadPool, QRunnable, \
     QDateTime, QRegExp, QSortFilterProxyModel, QSize, QModelIndex
-from PyQt5.QtGui import QBrush, QColor, QTextDocument
+from PyQt5.QtGui import QBrush, QColor, QTextDocument,QPixmap
 from PyQt5.QtWidgets import QMainWindow, QStyledItemDelegate, QApplication, QDateEdit, QMessageBox, \
     QDateTimeEdit, QHeaderView, QSpinBox, QFileDialog, QDialog
 from docxtpl import DocxTemplate
@@ -44,6 +44,13 @@ class MainWindow(QMainWindow, moise_alternatif_widgets.Ui_MainWindow):
         # sshFile = "Style_Gray.qss"
         # with open(sshFile, "r") as fh:
         #     self.setStyleSheet(fh.read())
+
+        imgpth = pathlib.Path.cwd()/'Armee_Air.jpg'
+        print(imgpth)
+        pix = QPixmap(str(imgpth))
+        w = self.Logo_Label.width()
+        h = self.Logo_Label.height()
+        self.Logo_Label.setPixmap(pix.scaled(w,h))
 
         # SET UP DB
         self.DB = LmtDataBase()
