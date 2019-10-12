@@ -25,7 +25,7 @@ class LmtDataBase():
             '''CREATE TABLE Pilots_id(id INTEGER PRIMARY KEY UNIQUE, rank TEXT, first_name TEXT, last_name TEXT,nia TEXT)''')
 
         query.exec_(
-            '''CREATE TABLE Aircraft(id INTEGER PRIMARY KEY, immatriculation TEXT,type_ac TEXT,puissance TEXT)''')
+            '''CREATE TABLE Aircraft(id INTEGER PRIMARY KEY, immatriculation TEXT,type_ac TEXT,puissance TEXT,prix TEXT)''')
 
 
 
@@ -36,7 +36,7 @@ class LmtDataBase():
         query.exec_('''INSERT INTO Pilots_hours (id ,pilot_1,pilot_2, aircraft, date_time1 , date_time2, total mission, mission, commentaires )  VALUES 
             ( 1,'NOM','NOM ',1','2030/01/01 15:00','2030/01/01 15:00', '0','une mission super importante qui va sauver le monde','sans commentaire')''')
 
-        query.exec_('''INSERT INTO Aircraft(id, immatriculation) VALUES (1, 'F-GTPH','DR400','180)''')
+        query.exec_('''INSERT INTO Aircraft(id, immatriculation,type_ac,puissance,prix) VALUES (1, 'F-GTPH','DR400','180','180')''')
 
         query.exec_(
             '''INSERT INTO Pilots_id(id,rank,first_name,last_name,nia) VALUES (1,'CAPITAINE','MARC','MORGAND','AK10000')''')

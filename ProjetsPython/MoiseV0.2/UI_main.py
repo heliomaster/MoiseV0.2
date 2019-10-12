@@ -347,7 +347,7 @@ class MainWindow(QMainWindow, moise_alternatif_widgets.Ui_MainWindow):
         return self.combo.currentText()
 
     def retrieve_aircraft_var(self):
-        """retrieve aircrafts variable from lmtpilots DB and sets it to combobox"""
+        """retrieve aircrafts variable from lmtpilots DB and sets it to combobox aircraft price"""
         query_ac = QSqlQuery("SELECT immatriculation FROM Aircraft")
         list_to_be_filled_by_aircraft = []
         while query_ac.next():
@@ -369,11 +369,29 @@ class MainWindow(QMainWindow, moise_alternatif_widgets.Ui_MainWindow):
         try:
             hours = self.proxy_hours_minutes()[0]
             minutes = self.proxy_hours_minutes()[1]
-            rate = 10000
-            if self.comboBox_price_aircraft.currentText() == "F-GTPH":
-                rate = 193
-            elif self.comboBox_price_aircraft.currentText() == "F-GJQP":
-                rate = 85
+            # rate = 10000
+            query = QSqlQuery()
+            query.exec_(f'SELECT prix FROM Aircraft WHERE immatriculation = "'
+                        f'{self.comboBox_price_aircraft.currentText()}" ')
+            while query.next():
+                rate = float(query.value(0))
+                print(rate)
+                print(type(rate))
+
+
+            # if self.comboBox_price_aircraft.currentText() == "F-GTPH":
+            #     rate = 193
+            # elif self.comboBox_price_aircraft.currentText() == "F-GJQP":
+            #     rate = 85
+            # elif self.comboBox_price_aircraft.currentText() == "F-GLPX":
+            #     query = QSqlQuery()
+            #     query.exec_(f'SELECT prix FROM Aircraft WHERE immatriculation = "'
+            #                 f'{self.comboBox_price_aircraft.currentText()}" ')
+            #     while query.next():
+            #         px = float(query.value(0))
+            #         print(px)
+            #         print(type(px))
+
             price = round(hours * rate + (rate * minutes) / 60, 2)
             price_with_int = self.calculate_aircraft_price_with_interest() + price
 
@@ -1160,7 +1178,7 @@ class Dialogu2(QDialog, TabView2.Ui_insertDialogu):
         query.bindValue(0, self.lineEdit.text())
         query.bindValue(1, self.lineEdit_2.text())
         query.bindValue(2, self.lineEdit_3.text())
-        query.bindValue(3,self.label_prix.text())
+        query.bindValue(3,self.lineEdit_prix_avion.text())
         query.exec_()
         msg = QMessageBox()
         msg.setText("Aéronef inseré dans la base de données")
